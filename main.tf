@@ -28,7 +28,7 @@ resource "aws_route" "igw" {
 }
 
 resource "aws_eip" "lb" {
-  for_each = local.public_subnets_ids
+  count = local.public_subnets_ids
   domain   = "vpc"
 }
 
