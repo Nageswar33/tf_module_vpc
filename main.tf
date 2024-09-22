@@ -50,6 +50,13 @@ resource "aws_vpc_peering_connection" "peering" {
   auto_accept = true
 }
 
+resource "aws_route" "peering" {
+  count = lenght(local.private_route_table_ids)
+  route_table_id            = element(local.private_route_table_ids,count.index)
+  destination_cidr_block    = var.default_cidr
+  nat_gateway_id = element(aws_nat_gateway.ngw.*.id,count.index)
+}
+
 output "subnet"{
   value = module.subnets
   }
