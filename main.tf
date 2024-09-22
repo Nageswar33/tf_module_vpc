@@ -65,9 +65,6 @@ resource "aws_route" "peering" {
 }
 
 
-
-
-
 output "subnet"{
   value = module.subnets
   }
