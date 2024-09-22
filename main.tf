@@ -21,21 +21,21 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 resource "aws_route" "igw" {
-  count = length(local.public_subnets_ids)
-  route_table_id            = element(local.public_subnets_ids,count.index)
+  count = length(local.public_subnet_ids)
+  route_table_id            = element(local.public_subnet_ids,count.index)
   destination_cidr_block    = "0.0.0.0/0"
   gateway_id = aws_internet_gateway.igw.id
 }
 
 resource "aws_eip" "lb" {
-  count = length(local.public_subnets_ids)
+  count = length(local.public_subnet_ids)
   domain   = "vpc"
 }
 
 resource "aws_nat_gateway" "ngw" {
-  count = length(local.public_subnets_ids)
+  count = length(local.public_subnet_ids)
   allocation_id = element(aws_eip.lb.*.id,count.index)
-  subnet_id     = element(local.public_subnets_ids,count.index)
+  subnet_id     = element(local.public_subnet_ids,count.index)
   }
 resource "aws_route" "ngw" {
   count = length(local.private_route_table_ids)
