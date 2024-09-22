@@ -1,7 +1,5 @@
 locals {
 
-
-
   public_subnets_ids = [for k,v in lookup(lookup(module.subnets,"public",null),"subnet_ids",null) : v.id]
   app_subnets_ids = [for k,v in lookup(lookup(module.subnets,"app",null),"subnet_ids",null) : v.id]
   db_subnets_ids = [for k,v in lookup(lookup(module.subnets,"db",null),"subnet_ids",null) : v.id]
