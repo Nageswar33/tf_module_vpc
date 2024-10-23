@@ -5,5 +5,3 @@ output "subnets_ids" {
 output "aws_route_table_ids" {
   value = aws_route_table.main
 }
-
-}
